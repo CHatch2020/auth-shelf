@@ -52,8 +52,21 @@ pool.query(sqlText, sqlValues)
  * Delete an item if it's something the logged in user added
  */
 router.delete('/:id', (req, res) => {
-  // endpoint functionality
+  const itemToDelete = req.params.id;
+  console.log('req.params.id:', req.params.id);
+  const queryText = `
+  DELETE FROM "item"
+  WHERE "id"=$1;`;
+  const queryValues = [itemToDelete];
+  pool.query(queryText, queryValues)
+    .then((dbRes) => {
+      res.sendStatus(200);
+    }).catch((dbErr) => {
+      res.sendStatus(500);
+      console.log('items delete dbErr:', dbErr);
+    });
 });
+  // endpoint functionality
 
 /**
  * Update an item if it's something the logged in user added

@@ -26,6 +26,14 @@ function ShelfPage() {
     })
   }
 
+  const deleteItem = (item_id)=>{
+    console.log(item_id);
+    dispatch({
+      type: 'DELETE_ITEM',
+      payload: item_id
+    })
+  }
+
 
   return (
     <div className="container">
@@ -49,8 +57,8 @@ function ShelfPage() {
       <div>
         <ul>
           {itemReducer.map((item) => {
-            return <li> <img src={item.image_url} /> {item.description}</li>
-          })}
+            return <li key={item.id}> <img src={item.image_url} /> {item.description} <button onClick={() => deleteItem(item.id)}>Delete</button></li>
+          })} 
         </ul>
       </div>
     </div>
